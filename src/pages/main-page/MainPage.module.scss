@@ -1,0 +1,22 @@
+@use '../../app/styles/variables' as vars;
+
+.main_page {
+  background-color: vars.$color-background;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: vars.$header-height 1fr;
+}
+
+.main_content {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: vars.$sidebar-width minmax(0, 1fr);
+  gap: vars.$gap;
+  padding: vars.$gap;
+}
+
+.side_bar,
+.grid {
+  min-height: 0;
+  overflow: auto;
+}

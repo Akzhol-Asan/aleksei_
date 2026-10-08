@@ -1,0 +1,8 @@
+@use '../../app/styles/variables' as vars;
+
+.side_bar {
+  border: 1px solid black;
+  width: 100%;
+  height: 100%;
+  border-radius: vars.$border-radius;
+}
