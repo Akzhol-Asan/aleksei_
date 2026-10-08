@@ -182,10 +182,7 @@
       "studentsCount": 24,
       "requiredLessonsPerWeek": 3,
       "teacherId": "T1",
-      "allowedTeacherIds": [
-        "T1",
-        "T2"
-      ],
+      "allowedTeacherIds": ["T1", "T2"],
       "preferredRoomType": "COMPUTER_LAB"
     },
     {
@@ -195,10 +192,7 @@
       "studentsCount": 32,
       "requiredLessonsPerWeek": 3,
       "teacherId": "T2",
-      "allowedTeacherIds": [
-        "T1",
-        "T2"
-      ],
+      "allowedTeacherIds": ["T1", "T2"],
       "preferredRoomType": "LECTURE"
     },
     {
@@ -208,9 +202,7 @@
       "studentsCount": 28,
       "requiredLessonsPerWeek": 2,
       "teacherId": "T3",
-      "allowedTeacherIds": [
-        "T3"
-      ],
+      "allowedTeacherIds": ["T3"],
       "preferredRoomType": "LECTURE"
     },
     {
@@ -220,10 +212,7 @@
       "studentsCount": 18,
       "requiredLessonsPerWeek": 2,
       "teacherId": "T4",
-      "allowedTeacherIds": [
-        "T1",
-        "T4"
-      ],
+      "allowedTeacherIds": ["T1", "T4"],
       "preferredRoomType": "COMPUTER_LAB"
     },
     {
@@ -233,9 +222,7 @@
       "studentsCount": 20,
       "requiredLessonsPerWeek": 2,
       "teacherId": "T5",
-      "allowedTeacherIds": [
-        "T5"
-      ],
+      "allowedTeacherIds": ["T5"],
       "preferredRoomType": "LECTURE"
     },
     {
@@ -245,9 +232,7 @@
       "studentsCount": 35,
       "requiredLessonsPerWeek": 2,
       "teacherId": "T6",
-      "allowedTeacherIds": [
-        "T6"
-      ],
+      "allowedTeacherIds": ["T6"],
       "preferredRoomType": "LECTURE"
     },
     {
@@ -257,10 +242,7 @@
       "studentsCount": 16,
       "requiredLessonsPerWeek": 2,
       "teacherId": "T1",
-      "allowedTeacherIds": [
-        "T1",
-        "T4"
-      ],
+      "allowedTeacherIds": ["T1", "T4"],
       "preferredRoomType": "COMPUTER_LAB"
     },
     {
@@ -270,9 +252,7 @@
       "studentsCount": 22,
       "requiredLessonsPerWeek": 3,
       "teacherId": "T3",
-      "allowedTeacherIds": [
-        "T3"
-      ],
+      "allowedTeacherIds": ["T3"],
       "preferredRoomType": "LECTURE"
     },
     {
@@ -282,9 +262,7 @@
       "studentsCount": 38,
       "requiredLessonsPerWeek": 2,
       "teacherId": "T5",
-      "allowedTeacherIds": [
-        "T5"
-      ],
+      "allowedTeacherIds": ["T5"],
       "preferredRoomType": "LECTURE"
     },
     {
@@ -294,10 +272,7 @@
       "studentsCount": 14,
       "requiredLessonsPerWeek": 2,
       "teacherId": null,
-      "allowedTeacherIds": [
-        "T1",
-        "T4"
-      ],
+      "allowedTeacherIds": ["T1", "T4"],
       "preferredRoomType": "COMPUTER_LAB"
     }
   ],
