@@ -1,0 +1,61 @@
+@use '../../../app/styles/variables' as vars;
+
+.card {
+  border: 1px solid rgb(218, 218, 218);
+  border-radius: vars.$border-radius;
+  padding: vars.$gap;
+  display: flex;
+  flex-direction: column;
+  gap: vars.$gap;
+
+  cursor: grab;
+  background: vars.$color-surface;
+  box-shadow: 0 0 0 rgba(16, 24, 40, 0); // начальное состояние: тень есть, но невидимая
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(16, 24, 40, 0.12);
+    border-color: rgb(190, 190, 190);
+  }
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  p {
+    font-size: 12px;
+    color: grey;
+  }
+
+  .progress_bar {
+    width: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-top: 8px;
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}

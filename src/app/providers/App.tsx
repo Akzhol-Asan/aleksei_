@@ -1,5 +1,10 @@
+import { ScheduleProvider } from '@/entities/schedule/model/ScheduleProvider';
 import { MainPage } from '../../pages/main-page/MainPage';
 
 export function App() {
-  return <MainPage />;
+  return (
+    <ScheduleProvider>
+      <MainPage />
+    </ScheduleProvider>
+  );
 }
