@@ -1,6 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react';
-
-import { fetchScheduleData } from '../api/fecthScheduleData';
+import { fetchScheduleData } from '../api/fetchScheduleData';
 import { ScheduleContext, type ScheduleState } from './ScheduleContext';
 
 export function ScheduleProvider({ children }: { children: ReactNode }) {

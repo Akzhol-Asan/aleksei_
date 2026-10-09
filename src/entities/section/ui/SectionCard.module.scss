@@ -1,7 +1,7 @@
 @use '../../../app/styles/variables' as vars;
 
 .card {
-  border: 1px solid rgb(218, 218, 218);
+  border: 1px solid vars.$color-border;
   border-radius: vars.$border-radius;
   padding: vars.$gap;
   display: flex;
