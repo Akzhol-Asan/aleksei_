@@ -1,13 +1,15 @@
-import { useSchedule } from '@/entities/schedule/model/useSchedule';
 import styles from './ScheduleGrid.module.scss';
 import { Spin } from 'antd';
 import React, { useMemo } from 'react';
 import { getSlotKey, selectLessonsBySlot } from '@/entities/schedule/model/selectors';
 import { LessonCard } from '@/entities/lesson/ui/LessonCard';
 import type { LessonsListItem } from '@/entities/schedule/model/types';
+import { useScheduleStore } from '@/entities/schedule/model/scheduleStore';
 
 export function ScheduleGrid() {
-  const state = useSchedule();
+  const state = useScheduleStore();
+
+  const removeLesson = useScheduleStore((s) => s.removeLesson);
 
   const lessonsBySlot = useMemo(
     () =>
@@ -46,7 +48,11 @@ export function ScheduleGrid() {
             return (
               <div key={key} className={styles.cell}>
                 {lessons.map((item) => (
-                  <LessonCard key={item.lesson.id} {...item} />
+                  <LessonCard
+                    key={item.lesson.id}
+                    {...item}
+                    removeLesson={() => removeLesson(item.lesson.id)}
+                  />
                 ))}
               </div>
             );

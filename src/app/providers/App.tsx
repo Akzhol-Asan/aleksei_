@@ -1,10 +1,14 @@
-import { ScheduleProvider } from '@/entities/schedule/model/ScheduleProvider';
 import { MainPage } from '../../pages/main-page/MainPage';
+import { useScheduleStore } from '@/entities/schedule/model/scheduleStore';
+import { useEffect } from 'react';
 
 export function App() {
-  return (
-    <ScheduleProvider>
-      <MainPage />
-    </ScheduleProvider>
-  );
+  const load = useScheduleStore((s) => s.load);
+
+  //загружаем данные 1 раз при старте
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  return <MainPage />;
 }

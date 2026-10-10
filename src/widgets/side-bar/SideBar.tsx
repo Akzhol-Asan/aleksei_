@@ -3,10 +3,10 @@ import styles from './SideBar.module.scss';
 import { useMemo } from 'react';
 import { selectSectionListItems } from '@/entities/schedule/model/selectors';
 import { Alert, Spin } from 'antd';
-import { useSchedule } from '@/entities/schedule/model/useSchedule';
+import { useScheduleStore } from '@/entities/schedule/model/scheduleStore';
 
 export function SideBar() {
-  const state = useSchedule();
+  const state = useScheduleStore();
 
   const items = useMemo(
     () => (state.status === 'ready' ? selectSectionListItems(state.data) : []),

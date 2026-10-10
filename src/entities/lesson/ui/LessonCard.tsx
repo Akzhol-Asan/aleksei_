@@ -6,11 +6,18 @@ interface LessonCardProps {
   courseName: string;
   teacherName: string;
   roomName: string;
+  removeLesson?: () => void;
 }
 
-export function LessonCard({ sectionCode, courseName, teacherName, roomName }: LessonCardProps) {
+export function LessonCard({
+  sectionCode,
+  courseName,
+  teacherName,
+  roomName,
+  removeLesson,
+}: LessonCardProps) {
   return (
-    <div className={styles.lesson_card}>
+    <div className={styles.lesson_card} onDoubleClick={removeLesson}>
       <b>{sectionCode}</b>
       <span>{courseName}</span>
 
