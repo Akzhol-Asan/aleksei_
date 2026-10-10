@@ -1,0 +1,35 @@
+@use '../../../app/styles/variables' as vars;
+
+.lesson_card {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 10px 5px;
+  border: 1px solid vars.$color-border;
+  border-radius: vars.$border-radius;
+
+  span {
+    font-size: 12px;
+    color: gray;
+  }
+
+  &:hover {
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(16, 24, 40, 0.12);
+    border-color: rgb(190, 190, 190);
+    cursor: grab;
+  }
+}
+
+.lesson_card_inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  span {
+    display: flex;
+    align-items: start;
+    gap: 5px;
+  }
+}

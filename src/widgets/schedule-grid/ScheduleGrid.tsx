@@ -1,10 +1,21 @@
 import { useSchedule } from '@/entities/schedule/model/useSchedule';
 import styles from './ScheduleGrid.module.scss';
 import { Spin } from 'antd';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { getSlotKey, selectLessonsBySlot } from '@/entities/schedule/model/selectors';
+import { LessonCard } from '@/entities/lesson/ui/LessonCard';
+import type { LessonsListItem } from '@/entities/schedule/model/types';
 
 export function ScheduleGrid() {
   const state = useSchedule();
+
+  const lessonsBySlot = useMemo(
+    () =>
+      state.status === 'ready'
+        ? selectLessonsBySlot(state.data)
+        : new Map<string, LessonsListItem[]>(),
+    [state],
+  );
 
   if (state.status === 'loading') return <Spin />;
   if (state.status === 'error') return null;
@@ -28,9 +39,18 @@ export function ScheduleGrid() {
             <span className={styles.time_end}>{slot.end}</span>
           </div>
 
-          {days.map((day) => (
-            <div key={`${day.id}_${slot.id}`} className={styles.cell} />
-          ))}
+          {days.map((day) => {
+            const key = getSlotKey(day.id, slot.id);
+            const lessons = lessonsBySlot.get(key) ?? [];
+
+            return (
+              <div key={key} className={styles.cell}>
+                {lessons.map((item) => (
+                  <LessonCard key={item.lesson.id} {...item} />
+                ))}
+              </div>
+            );
+          })}
         </React.Fragment>
       ))}
     </div>

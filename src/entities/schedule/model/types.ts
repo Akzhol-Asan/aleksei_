@@ -24,3 +24,11 @@ export interface ScheduleData {
   teacherBlockedSlots: TeacherBlockedSlot[];
   lessons: Lesson[];
 }
+
+export interface LessonsListItem {
+  lesson: Lesson;
+  sectionCode: string;
+  courseName: string;
+  teacherName: string;
+  roomName: string;
+}
