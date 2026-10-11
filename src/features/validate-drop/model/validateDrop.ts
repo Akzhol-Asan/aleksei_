@@ -73,7 +73,7 @@ export function validateDrop(data: ScheduleData, c: DropCandidate): Conflict[] {
       if (room && section && room.capacity < section.studentsCount) {
         conflicts.push({
           code: 'ROOM_TOO_SMALL',
-          message: `Данная Аудитория вмещает ${room.capacity}, а в секции ${section.studentsCount} студентов`,
+          message: `/ ${section.studentsCount} студентов`,
         });
       }
     }

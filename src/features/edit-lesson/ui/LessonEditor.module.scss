@@ -1,0 +1,22 @@
+@use '../../../app/styles/variables' as vars;
+
+.trigger {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.editor {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 280px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: vars.$color-gray-100;
+}

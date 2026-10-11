@@ -6,6 +6,7 @@ import type { LessonsListItem } from '@/entities/schedule/model/types';
 import { useScheduleStore } from '@/entities/schedule/model/scheduleStore';
 import { DroppableSlot } from '@/features/schedule-dnd/ui/DroppableSlot';
 import { DraggableLesson } from '@/features/schedule-dnd/ui/DraggableLesson';
+import { LessonEditor } from '@/features/edit-lesson/ui/LessonEditor';
 
 export function ScheduleGrid() {
   const state = useScheduleStore();
@@ -47,7 +48,9 @@ export function ScheduleGrid() {
             return (
               <DroppableSlot key={key} day={day.id} timeSlotId={slot.id} className={styles.cell}>
                 {lessons.map((item) => (
-                  <DraggableLesson key={item.lesson.id} item={item} />
+                  <LessonEditor key={item.lesson.id} lesson={item.lesson}>
+                    <DraggableLesson item={item} />
+                  </LessonEditor>
                 ))}
               </DroppableSlot>
             );
