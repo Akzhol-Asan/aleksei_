@@ -32,3 +32,10 @@ export interface LessonsListItem {
   teacherName: string;
   roomName: string;
 }
+
+export interface SectionListItem {
+  section: Section;
+  courseName: string;
+  teacherName: string | null;
+  scheduledCount: number;
+}

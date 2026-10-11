@@ -1,10 +1,10 @@
-import { SectionCard } from '@/entities/section/ui/SectionCard';
 import styles from './SideBar.module.scss';
 import { useMemo } from 'react';
 import { selectSectionListItems } from '@/entities/schedule/model/selectors';
 import { Alert, Spin } from 'antd';
 import { useScheduleStore } from '@/entities/schedule/model/scheduleStore';
 import { UnassignedDropZone } from '@/features/schedule-dnd/ui/UnassignedDropZone';
+import { DraggableSection } from '@/features/schedule-dnd/ui/DraggableSection';
 
 export function SideBar() {
   const state = useScheduleStore();
@@ -21,7 +21,7 @@ export function SideBar() {
       <div className={styles.side_bar_header}>Учебные секции</div>
       <div className={styles.side_bar_inner}>
         {items.map((item) => (
-          <SectionCard key={item.section.id} {...item} />
+          <DraggableSection key={item.section.id} item={item} />
         ))}
       </div>
     </UnassignedDropZone>

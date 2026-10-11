@@ -13,10 +13,13 @@ import { useState, type ReactNode } from 'react';
 import type { DragData, DropData } from '../model/types';
 import { getDropConflicts } from '../model/getDropConflicts';
 import { LessonCard } from '@/entities/lesson/ui/LessonCard';
+import { planSectionDrop } from '../model/planSectionDrop';
+import { SectionCard } from '@/entities/section/ui/SectionCard';
 
 export function ScheduleDndProvider({ children }: { children: ReactNode }) {
   const moveLesson = useScheduleStore((s) => s.moveLesson);
   const removeLesson = useScheduleStore((s) => s.removeLesson);
+  const addLesson = useScheduleStore((s) => s.addLesson);
 
   const [active, setActive] = useState<DragData | null>(null);
 
@@ -32,11 +35,30 @@ export function ScheduleDndProvider({ children }: { children: ReactNode }) {
 
     const drag = e.active.data.current as DragData | undefined;
     const drop = e.over?.data.current as DropData | undefined;
-
     if (!drag || !drop) return;
 
     const state = useScheduleStore.getState();
     if (state.status !== 'ready') return;
+
+    //section activity
+    if (drag.type === 'section') {
+      if (drop.type !== 'slot') return;
+
+      const { section } = drag.item;
+      const plan = planSectionDrop(state.data, section, drop.day, drop.timeSlotId);
+      if (plan.conflicts.length > 0 || !plan.teacherId || !plan.roomId) return;
+
+      addLesson({
+        id: crypto.randomUUID(),
+        sectionId: section.id,
+        teacherId: plan.teacherId,
+        roomId: plan.roomId,
+        day: drop.day,
+        timeSlotId: drop.timeSlotId,
+      });
+
+      return;
+    }
 
     const { lesson } = drag.item;
 
@@ -60,7 +82,10 @@ export function ScheduleDndProvider({ children }: { children: ReactNode }) {
       onDragCancel={() => setActive(null)}
     >
       {children}
-      <DragOverlay>{active ? <LessonCard {...active.item} /> : null}</DragOverlay>
+      <DragOverlay>
+        {active?.type === 'lesson' && <LessonCard {...active.item} />}
+        {active?.type === 'section' && <SectionCard {...active.item} />}
+      </DragOverlay>
     </DndContext>
   );
 }

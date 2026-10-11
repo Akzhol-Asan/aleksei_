@@ -11,7 +11,14 @@ export interface DropCandidate {
 }
 
 export type ConflictCode =
-  'SECTION_BUSY' | 'TEACHER_BUSY' | 'ROOM_BUSY' | 'TEACHER_BLCOKED' | 'ROOM_TOO_SMALL';
+  | 'SECTION_BUSY'
+  | 'TEACHER_BUSY'
+  | 'ROOM_BUSY'
+  | 'TEACHER_BLOCKED'
+  | 'ROOM_TOO_SMALL'
+  | 'SECTION_COMPLETE'
+  | 'NO_TEACHER'
+  | 'NO_ROOM';
 
 export interface Conflict {
   code: ConflictCode;
@@ -37,7 +44,7 @@ export function validateDrop(data: ScheduleData, c: DropCandidate): Conflict[] {
     if (busy) {
       conflicts.push({
         code: 'TEACHER_BUSY',
-        message: 'Преподователь занят в это время',
+        message: 'Преподаватель занят в это время',
       });
     }
 
@@ -47,8 +54,8 @@ export function validateDrop(data: ScheduleData, c: DropCandidate): Conflict[] {
 
     if (blocked) {
       conflicts.push({
-        code: 'TEACHER_BLCOKED',
-        message: `Преподователь - ${blocked.reason} занят в это время`,
+        code: 'TEACHER_BLOCKED',
+        message: `Преподаватель - ${blocked.reason} занят в это время`,
       });
     }
 

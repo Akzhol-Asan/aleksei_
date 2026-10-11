@@ -97,3 +97,9 @@
   font-size: 13px;
   pointer-events: none;
 }
+
+//drag section
+.draggable_section {
+  touch-action: none;
+  cursor: grab;
+}
