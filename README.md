@@ -1,75 +1,91 @@
-# React + TypeScript + Vite
+# Интерактивное распределение секций и составление расписания
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Прототип интерфейса для сотрудника университета, который распределяет учебные секции по недельной сетке через Drag & Drop.
 
-Currently, two official plugins are available:
+# Запуск
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Требуется Node.js 20.19+ или 22.12+
+ссылка для скачивания https://nodejs.org/en/download
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Другие команды:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm run build   # проверка типов + сборка
+npm run lint    # ESLint
+npm run format  # Prettier
 ```
+
+# Стэк
+
+- React 19 + TypeScript
+- Vite
+- Zustand
+- @dnd-kit/core (Drag & Drop)
+- Ant Design (popover, select, progress-bar, icons)
+- SCSS Modules
+
+# Что реализовано
+
+1. Из Секции в Расписание
+   Секцию из списка можно перетащить в слот, появится - занятие. При отсутствии Преподавателя или Аудитории - подбирается автоматически.
+
+2. Переместить занятие в дргой слот
+   Во время перетаскивания под курсором едет копия карточки, оригинал остаётся полупрозрачным, а целевая ячейка подсвечивается.
+
+3. Невалидный Drop
+
+- преподаватель уже ведёт занятие в этом слоте
+- аудитория уже занята
+- вместимость аудитории меньше числа студентов
+- преподаватель недоступен по `teacherBlockedSlots`
+- у секции уже есть занятие в этом слоте
+
+4. Возврат в нераспределённые
+   Занятие можно перетащить обратно на панель секций. Оно удаляется, и счётчик секции обновляется
+
+5. Редактор занятия
+   Клик по карточке занятия открывает popover со сменой преподавателя и аудитории. Варианты, которые дали бы конфликт, недоступны, рядом указана причина.
+
+6. Карточка секции
+
+- Код
+- Название курса
+- Преподаватель
+- Число студентов
+- Прогресс-бар
+
+# Архитектура
+
+Структура по Feature-Sliced Design:
+
+- entities содержит модели и UI - компоненты предметной области
+- features содержит сценарии Drag & Drop, проверки конфликтов и редактирование занятия
+- widgets собирает крупные части экрана: список секций и сетку расписания
+- Селекторы в src/entities/schedule/model/selectors.ts преобразуют исходные данные в модели для отображения
+- Состояние и операции с расписанием находятся в src/entities/schedule/model/scheduleStore.ts.
+
+# Основные решения
+
+- Конфликты вынесены из UI
+- Возвращаются все конфликты, пользователь видит все причины
+- Состояние -union. loading | error | ready
+- Нельзя превысить план по кол-ву занятий. Если у секции уже распределены все занятия, новое не создаётся
+- Ячейка = время а не аудитория. В одном слоте может быть несколько занятий если у них разные секции, преподаватели, аудитории
+- Клик и перетаскивание не конфликтуют. Drag начинает работать после сдвига на +5px. Один клик открывает редактор
+
+# Что пока не сделано
+
+- Сохранение изменений после перезагрузки страницы
+- Поиск и фильтры для быстрого выбора секций
+- Клавиатурная альтернатива Drag & Drop
+- Адаптивность (приложение пока что рассчитан только на desktop)
+
+# Дополнительно
+
+Архитектура в виде диаграммы - https://gitdiagram.com/akzhol-asan/aleksei_
+Дизайн-прототип - https://www.figma.com/design/jTDNI5H8PVopQuxQ00fv9i/aleksei_?node-id=0-1
