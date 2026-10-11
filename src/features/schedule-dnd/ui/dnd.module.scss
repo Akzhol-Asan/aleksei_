@@ -1,0 +1,17 @@
+.draggable {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  touch-action: none; // чтобы на тачскрине перетаскивание не превращалось в скролл
+  cursor: grab;
+}
+
+.dragging {
+  opacity: 0.4; // оригинал остаётся на месте полупрозрачным
+}
+
+.over {
+  outline: 2px dashed #1677ff; // ячейка под курсором — сюда встанет занятие
+  outline-offset: -2px;
+  background: #f0f6ff;
+}

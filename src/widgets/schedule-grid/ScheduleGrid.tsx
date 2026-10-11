@@ -2,14 +2,13 @@ import styles from './ScheduleGrid.module.scss';
 import { Spin } from 'antd';
 import React, { useMemo } from 'react';
 import { getSlotKey, selectLessonsBySlot } from '@/entities/schedule/model/selectors';
-import { LessonCard } from '@/entities/lesson/ui/LessonCard';
 import type { LessonsListItem } from '@/entities/schedule/model/types';
 import { useScheduleStore } from '@/entities/schedule/model/scheduleStore';
+import { DroppableSlot } from '@/features/schedule-dnd/ui/DroppableSlot';
+import { DraggableLesson } from '@/features/schedule-dnd/ui/DraggableLesson';
 
 export function ScheduleGrid() {
   const state = useScheduleStore();
-
-  const removeLesson = useScheduleStore((s) => s.removeLesson);
 
   const lessonsBySlot = useMemo(
     () =>
@@ -46,15 +45,11 @@ export function ScheduleGrid() {
             const lessons = lessonsBySlot.get(key) ?? [];
 
             return (
-              <div key={key} className={styles.cell}>
+              <DroppableSlot key={key} day={day.id} timeSlotId={slot.id} className={styles.cell}>
                 {lessons.map((item) => (
-                  <LessonCard
-                    key={item.lesson.id}
-                    {...item}
-                    removeLesson={() => removeLesson(item.lesson.id)}
-                  />
+                  <DraggableLesson key={item.lesson.id} item={item} />
                 ))}
-              </div>
+              </DroppableSlot>
             );
           })}
         </React.Fragment>
