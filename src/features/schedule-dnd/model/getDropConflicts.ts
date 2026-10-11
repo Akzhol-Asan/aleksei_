@@ -1,8 +1,8 @@
 import type { ScheduleData } from '@/entities/schedule/model/types';
-import type { DragData, DropData } from './types';
+import type { DragData, SlotDrop } from './types';
 import { validateDrop, type Conflict } from '@/features/validate-drop/model/validateDrop';
 
-export function getDropConflicts(data: ScheduleData, drag: DragData, drop: DropData): Conflict[] {
+export function getDropConflicts(data: ScheduleData, drag: DragData, drop: SlotDrop): Conflict[] {
   const { lesson } = drag.item;
 
   return validateDrop(data, {

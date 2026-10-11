@@ -58,7 +58,7 @@
 }
 
 .time_end {
-  color: #6b7280;
+  color: vars.$color-gray-100;
 }
 
 .cell {
@@ -72,5 +72,5 @@
 }
 
 .cell:hover {
-  background: #f3f7ff;
+  background: vars.$color-blue-100;
 }

@@ -2,6 +2,7 @@ import {
   DndContext,
   DragOverlay,
   PointerSensor,
+  pointerWithin,
   useSensor,
   useSensors,
   type DragEndEvent,
@@ -15,6 +16,8 @@ import { LessonCard } from '@/entities/lesson/ui/LessonCard';
 
 export function ScheduleDndProvider({ children }: { children: ReactNode }) {
   const moveLesson = useScheduleStore((s) => s.moveLesson);
+  const removeLesson = useScheduleStore((s) => s.removeLesson);
+
   const [active, setActive] = useState<DragData | null>(null);
 
   //старт перетаскивания от 5 пикселя
@@ -36,8 +39,13 @@ export function ScheduleDndProvider({ children }: { children: ReactNode }) {
     if (state.status !== 'ready') return;
 
     const { lesson } = drag.item;
-    if (lesson.day === drop.day && lesson.timeSlotId === drop.timeSlotId) return;
 
+    if (drop.type === 'unassigned') {
+      removeLesson(lesson.id);
+      return;
+    }
+
+    if (lesson.day === drop.day && lesson.timeSlotId === drop.timeSlotId) return;
     if (getDropConflicts(state.data, drag, drop).length > 0) return;
 
     moveLesson(lesson.id, drop.day, drop.timeSlotId);
@@ -46,6 +54,7 @@ export function ScheduleDndProvider({ children }: { children: ReactNode }) {
   return (
     <DndContext
       sensors={sensors}
+      collisionDetection={pointerWithin}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       onDragCancel={() => setActive(null)}
